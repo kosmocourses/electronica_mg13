@@ -20,6 +20,7 @@ import org.kosmocourses.emulator.electronica.mg13.model.GameObject;
 import org.kosmocourses.emulator.electronica.mg13.model.PlayerSpacecraft;
 import org.kosmocourses.emulator.electronica.mg13.plugin.IGameLogicPlugin;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,12 +53,14 @@ public class Engine extends GameApplication {
                 .renderLayer(RenderLayer.BACKGROUND)
                 .buildAndAttach();
 
-        // Fixme: add texture
         player = new PlayerSpacecraft(Entities.builder()
-                .at(300, 200)
-                .viewFromNode(new Rectangle(25, 25, Color.BLUE))
+                .at(260, 150)
+                .viewFromTexture("player.png")
                 .renderLayer(RenderLayer.TOP)
                 .buildAndAttach());
+
+        bullets = new HashSet<>();
+        emmies = new HashSet<>();
 
         try {
             Class clazz = Class.forName(DEFAULT_PLUGIN_CLASS_NAME);

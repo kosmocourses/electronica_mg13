@@ -46,29 +46,33 @@ public class PlayerSpacecraft extends GameObject{
     }
 
     private Entity newShield(AttackPosition position){
-        // Fixme: add change texture
         int x = 0;
         int y = 0;
+        String shieldTexture = "shield-rd.png";
         switch (position){
             case LEFT_UP:
                 x = 330;
                 y = 155;
+                shieldTexture = "shield-lu.png";
                 break;
             case LEFT_DOWN:
                 x = 330;
                 y = 195;
+                shieldTexture = "shield-ld.png";
                 break;
             case RIGHT_UP:
                 x = 370;
                 y = 155;
+                shieldTexture = "shield-ru.png";
                 break;
             case RIGHT_DOWN:
                 x = 370;
                 y = 195;
+                shieldTexture = "shield-rd.png";
         }
         return Entities.builder()
                 .at(x,y)
-                .viewFromNode(new Rectangle(7, 30, Color.GOLD))
+                .viewFromTexture(shieldTexture)
                 .renderLayer(RenderLayer.TOP)
                 .build();
     }

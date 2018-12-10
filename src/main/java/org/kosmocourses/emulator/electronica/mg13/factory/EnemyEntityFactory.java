@@ -8,10 +8,27 @@ public class EnemyEntityFactory implements EntityFactory {
 
     @Spawns("enemy")
     public Entity newEnemy(SpawnData data) {
-        // Fixme: add change texture
+        String enemyTexture = "enemy-rd.png";
+        boolean isRight = data.getX() > 300;
+        boolean isDown = data.getY() > 175;
+
+        if (!isRight && !isDown) {
+            // LEFT UP Position
+            enemyTexture = "enemy-lu.png";
+        } else if (!isRight && isDown) {
+            // LEFT DOWN Position
+            enemyTexture = "enemy-ld.png";
+        } else if (isRight && !isDown) {
+            // RIGHT UP Position
+            enemyTexture = "enemy-ru.png";
+        } else {
+            // RIGHT DOWN Position
+            enemyTexture = "enemy-rd.png";
+        }
+
         return Entities.builder()
                 .from(data)
-                .viewFromNode(new Rectangle(70, 70, Color.BLACK))
+                .viewFromTexture(enemyTexture)
                 .renderLayer(RenderLayer.TOP)
                 .build();
     }

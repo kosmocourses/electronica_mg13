@@ -1,6 +1,8 @@
 package org.kosmocourses.emulator.electronica.mg13.plugin;
 
 import com.almasb.fxgl.entity.GameWorld;
+import org.kosmocourses.emulator.electronica.mg13.factory.EnemyFactory;
+import org.kosmocourses.emulator.electronica.mg13.model.AttackPosition;
 import org.kosmocourses.emulator.electronica.mg13.model.GameObject;
 
 import java.util.Set;
@@ -14,6 +16,8 @@ public class GameLogicPlugin implements IGameLogicPlugin {
         deadChecker(gameWorld, player, bullets);
 
 
+
+        emmies.add(EnemyFactory.newEnemy(gameWorld, AttackPosition.RIGHT_DOWN));
 
 //        // Make bullet
 //        bullets.add(BulletFactory.newBullet(getGameWorld(), AttackPosition.LEFT_DOWN));
