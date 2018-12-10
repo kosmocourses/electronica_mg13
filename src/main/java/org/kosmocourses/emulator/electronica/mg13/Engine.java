@@ -8,13 +8,14 @@ import com.almasb.fxgl.entity.RenderLayer;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.settings.GameSettings;
-import com.almasb.fxgl.texture.Texture;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import org.kosmocourses.emulator.electronica.mg13.model.AtackPosition;
+import org.kosmocourses.emulator.electronica.mg13.factory.BulletEntityFactory;
+import org.kosmocourses.emulator.electronica.mg13.factory.EnemyEntityFactory;
+import org.kosmocourses.emulator.electronica.mg13.model.AttackPosition;
 import org.kosmocourses.emulator.electronica.mg13.model.GameObject;
 import org.kosmocourses.emulator.electronica.mg13.model.PlayerSpacecraft;
 import org.kosmocourses.emulator.electronica.mg13.plugin.IGameLogicPlugin;
@@ -38,16 +39,20 @@ public class Engine extends GameApplication {
         settings.setWidth(600);
         settings.setTitle("Электроника MG-13 'Space Explorer'");
         settings.setVersion("0.1");
+        settings.setFullScreenAllowed(false);
+        settings.setManualResizeEnabled(false);
     }
 
     @Override
     protected void initGame() {
+
         background = Entities.builder()
                 .at(0,0)
                 .viewFromTexture("device.png")
                 .renderLayer(RenderLayer.BACKGROUND)
                 .buildAndAttach();
 
+        // Fixme: add texture
         player = new PlayerSpacecraft(Entities.builder()
                 .at(300, 200)
                 .viewFromNode(new Rectangle(25, 25, Color.BLUE))
@@ -72,32 +77,32 @@ public class Engine extends GameApplication {
         input.addAction(new UserAction("Move shield to left up") {
             @Override
             protected void onAction() {
-                log.debug("Set shield position to " + AtackPosition.LEFT_UP);
-                ((PlayerSpacecraft) player).setShieldPosition(AtackPosition.LEFT_UP);
+                log.info("Set shield position to " + AttackPosition.LEFT_UP);
+                ((PlayerSpacecraft) player).setShieldPosition(AttackPosition.LEFT_UP);
             }
         }, KeyCode.Q);
 
         input.addAction(new UserAction("Move shield to left down") {
             @Override
             protected void onAction() {
-                log.debug("Set shield position to " + AtackPosition.LEFT_DOWN);
-                ((PlayerSpacecraft) player).setShieldPosition(AtackPosition.LEFT_DOWN);
+                log.info("Set shield position to " + AttackPosition.LEFT_DOWN);
+                ((PlayerSpacecraft) player).setShieldPosition(AttackPosition.LEFT_DOWN);
             }
         }, KeyCode.A);
 
         input.addAction(new UserAction("Move shield to right up") {
             @Override
             protected void onAction() {
-                log.debug("Set shield position to " + AtackPosition.RIGHT_UP);
-                ((PlayerSpacecraft) player).setShieldPosition(AtackPosition.RIGHT_UP);
+                log.info("Set shield position to " + AttackPosition.RIGHT_UP);
+                ((PlayerSpacecraft) player).setShieldPosition(AttackPosition.RIGHT_UP);
             }
         }, KeyCode.O);
 
         input.addAction(new UserAction("Move shield to right down") {
             @Override
             protected void onAction() {
-                log.debug("Set shield position to " + AtackPosition.RIGHT_DOWN);
-                ((PlayerSpacecraft) player).setShieldPosition(AtackPosition.RIGHT_DOWN);
+                log.info("Set shield position to " + AttackPosition.RIGHT_DOWN);
+                ((PlayerSpacecraft) player).setShieldPosition(AttackPosition.RIGHT_DOWN);
 //                player.translateY(5);
 //                getGameState().increment("pixelsMoved", +5);
             }
@@ -106,10 +111,6 @@ public class Engine extends GameApplication {
 
     @Override
     protected void initUI() {
-//        Texture deviceTexture = getAssetLoader().loadTexture("device.png");
-//        deviceTexture.setTranslateX(0);
-//        deviceTexture.setTranslateY(0);
-//        getGameScene().addUINode(deviceTexture);
 
         Text txtLife = new Text();
         txtLife.setFont(Font.font("Consolas", 30));
@@ -124,6 +125,13 @@ public class Engine extends GameApplication {
         txtScope.setTranslateY(120);
         getGameScene().addUINode(txtScope);
         txtScope.textProperty().bind(getGameState().intProperty("scope").asString());
+
+        getGameWorld().addEntityFactory(new BulletEntityFactory());
+        getGameWorld().addEntityFactory(new EnemyEntityFactory());
+
+
+
+
     }
 
     @Override

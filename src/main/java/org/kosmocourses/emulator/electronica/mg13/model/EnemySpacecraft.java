@@ -3,19 +3,19 @@ package org.kosmocourses.emulator.electronica.mg13.model;
 import com.almasb.fxgl.entity.Entity;
 
 public class EnemySpacecraft extends GameObject {
-    private AtackPosition atackPosition;
+    private AttackPosition attackPosition;
     private Entity entity;
 
-    public EnemySpacecraft(Entity entity, AtackPosition atackPosition) {
+    public EnemySpacecraft(Entity entity, AttackPosition attackPosition) {
         super(entity);
-        this.atackPosition = atackPosition;
+        this.attackPosition = attackPosition;
     }
 
-    public AtackPosition getAtackPosition() {
-        return atackPosition;
+    public AttackPosition getAttackPosition() {
+        return attackPosition;
     }
 
-    public void setAtackPosition(AtackPosition atackPosition) {
-        this.atackPosition = atackPosition;
+    public void setAttackPosition(AttackPosition attackPosition) {
+        this.attackPosition = attackPosition;
     }
 }

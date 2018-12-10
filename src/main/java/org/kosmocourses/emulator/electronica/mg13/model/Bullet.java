@@ -7,13 +7,13 @@ import com.almasb.fxgl.entity.Entity;
  */
 public class Bullet extends GameObject{
     private int speed;
-    private AtackPosition atackPosition;
+    private AttackPosition attackPosition;
 
 
-    public Bullet(Entity entity, int speed, AtackPosition atackPosition) {
+    public Bullet(Entity entity, int speed, AttackPosition attackPosition) {
         super(entity);
         this.speed = speed;
-        this.atackPosition = atackPosition;
+        this.attackPosition = attackPosition;
     }
 
     public int getSpeed() {
@@ -24,11 +24,11 @@ public class Bullet extends GameObject{
         this.speed = speed;
     }
 
-    public AtackPosition getAtackPosition() {
-        return atackPosition;
+    public AttackPosition getAttackPosition() {
+        return attackPosition;
     }
 
-    public void setAtackPosition(AtackPosition atackPosition) {
-        this.atackPosition = atackPosition;
+    public void setAttackPosition(AttackPosition attackPosition) {
+        this.attackPosition = attackPosition;
     }
 }
